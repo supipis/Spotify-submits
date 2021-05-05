@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add data to firebase</title>
+</head>
+
+<div class='myform'>
+<h1>Data submission form</h1>
+
+Country <input id='countrybox' type='text'></input> <br><br>
+Artist <input id='artistbox' type='text'></input><br><br>
+ID <input id='idbox' type='text'></input><br><br>
+<br><br>
+<button id='insert'>INSERT</button>
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-firestore.js"></script>
+
+<script id='MainScript'>
+
+    var firebaseConfig = {
+        apiKey: "AIzaSyAkPEv9v08oOv8c3hD-8SEGJt6po6U0JKg",
+        authDomain: "artists-spotify.firebaseapp.com",
+        projectId: "artists-spotify",
+        storageBucket: "artists-spotify.appspot.com",
+        messagingSenderId: "237999941202",
+        appId: "1:237999941202:web:25b876a105fdeb8a35218b"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+
+
+    function InsertData() {
+        var countryV, artistV, idV;
+
+        countryV = document.getElementById('countrybox').value;
+        artistV = document.getElementById('artistbox').value;
+        idV = document.getElementById('idbox').value;
+
+        firebase.firestore().collection("artists").add({
+            NameOfCountry: countryV,
+            NameOfArtist: artistV,
+            ArtistId: idV
+        })
+    }
+
+    document.getElementById('insert').addEventListener('click', function onclick(arguments) {
+        InsertData();
+        document.getElementById('countrybox').value=''
+        document.getElementById('artistbox').value='';
+        document.getElementById('idbox').value='';
+        alert('Successfully submitted')
+       
+    });
+
+
+</script>
+</body>
+
+</html>
